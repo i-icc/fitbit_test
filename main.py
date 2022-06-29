@@ -1,5 +1,5 @@
-import fitbit
 import json
+from fitbit import Fitbit
 
 with open("./env.json", "r") as f:
     tokens = json.load(f)
@@ -7,10 +7,11 @@ with open("./env.json", "r") as f:
     CLIENT_SECRET = tokens["client_secret"]
     TOKEN = tokens["token"]
 
+
 def main():
-    print(CLIENT_ID)
-    print(CLIENT_SECRET)
-    print(TOKEN)
+    fitbit = Fitbit(CLIENT_ID, CLIENT_SECRET, TOKEN)
+    print(fitbit.user())
+
 
 if __name__ == "__main__":
     main()
