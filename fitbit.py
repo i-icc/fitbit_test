@@ -6,7 +6,7 @@ class Fitbit:
         self.client_id = client_id
         self.client_secret = client_secret
         self.token = token
-        self.url = "https://api.fitbit.com/1/user/-/"
+        self.url = "https://api.fitbit.com/1.2/user/-/"
 
     def user(self):
         endpoint = "profile.json"
