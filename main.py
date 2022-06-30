@@ -11,9 +11,10 @@ with open("./env.json", "r") as f:
 
 def main():
     fitbit = Fitbit(CLIENT_ID, CLIENT_SECRET, TOKEN)
-    print(fitbit.user())
+    # print(fitbit.user())
     # print(fitbit.get_activity_log("2022-06-25"))
-    print(fitbit.get_sleep_log())
+    # print(fitbit.get_sleep_log())
+    print(fitbit.get_hrv())
 
 
 if __name__ == "__main__":

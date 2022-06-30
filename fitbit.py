@@ -6,12 +6,13 @@ class Fitbit:
         self.client_id = client_id
         self.client_secret = client_secret
         self.token = token
-        self.url = "https://api.fitbit.com/1.2/user/-/"
+        self.url = "https://api.fitbit.com/1/user/-/"
+        self.url2 = "https://api.fitbit.com/1.2/user/-/"
 
     def user(self):
         endpoint = "profile.json"
         headers = {"Authorization": f"Bearer {self.token}"}
-        r = requests.get(self.url+endpoint, headers=headers)
+        r = requests.get(self.url2+endpoint, headers=headers)
         user = {
             "fullName": r.json()["user"]["fullName"],
             "age": r.json()["user"]["age"],
@@ -35,7 +36,7 @@ class Fitbit:
             params["beforeDate"] = Date
         else :
             params["afterDate"] = Date
-        r = requests.get(self.url+endpoint, headers=headers, params=params)
+        r = requests.get(self.url2+endpoint, headers=headers, params=params)
         if r.reason == "Bad Request":
             print(r.reason)
             print('Maybe the format is different." The "beforeDate" and "afterDate" should be in the format yyyy-MM-dd.')
@@ -43,6 +44,12 @@ class Fitbit:
     
     def get_sleep_log(self, Date=datetime.date.today()):
         endpoint = f"sleep/date/{Date}.json"
+        headers = {"Authorization": f"Bearer {self.token}"}
+        r = requests.get(self.url2+endpoint, headers=headers)
+        return r.json()
+    
+    def get_hrv(self, Date=datetime.date.today()):
+        endpoint = f"hrv/date/{Date}.json"
         headers = {"Authorization": f"Bearer {self.token}"}
         r = requests.get(self.url+endpoint, headers=headers)
         return r.json()
