@@ -1,5 +1,7 @@
 import requests
 import datetime
+from matplotlib import pyplot
+
 
 class Fitbit:
     def __init__(self, client_id, client_secret, token):
@@ -34,22 +36,36 @@ class Fitbit:
         }
         if isBefore:
             params["beforeDate"] = Date
-        else :
+        else:
             params["afterDate"] = Date
         r = requests.get(self.url2+endpoint, headers=headers, params=params)
         if r.reason == "Bad Request":
             print(r.reason)
             print('Maybe the format is different." The "beforeDate" and "afterDate" should be in the format yyyy-MM-dd.')
         return r.json()
-    
+
     def get_sleep_log(self, Date=datetime.date.today()):
         endpoint = f"sleep/date/{Date}.json"
         headers = {"Authorization": f"Bearer {self.token}"}
         r = requests.get(self.url2+endpoint, headers=headers)
         return r.json()
-    
+
     def get_hrv(self, Date=datetime.date.today()):
         endpoint = f"hrv/date/{Date}.json"
         headers = {"Authorization": f"Bearer {self.token}"}
         r = requests.get(self.url+endpoint, headers=headers)
         return r.json()
+
+    def get_sleep_log_graph(self, Date=datetime.date.today()):
+        datas = self.get_sleep_log(Date)
+        sleep_level_log = []
+        levels = {
+            "wake": 3,
+            "rem": 2,
+            "light": 1,
+            "deep": 0
+        }
+        for data in datas["sleep"][0]["levels"]["data"]:
+            sleep_level_log += [levels[data["level"]] for i in range(data["seconds"])]
+        pyplot.plot(range(len(sleep_level_log)), sleep_level_log)
+        pyplot.show()
