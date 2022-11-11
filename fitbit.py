@@ -66,6 +66,9 @@ class Fitbit:
             "deep": 0
         }
         for data in datas["sleep"][0]["levels"]["data"]:
-            sleep_level_log += [levels[data["level"]] for i in range(data["seconds"])]
+            sleep_level_log += [levels[data["level"]]
+                                for i in range(data["seconds"])]
         pyplot.plot(range(len(sleep_level_log)), sleep_level_log)
+        pyplot.yticks([0, 1, 2, 3],
+                      ['deep', 'light', 'rem', "wake"])
         pyplot.show()
