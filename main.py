@@ -13,7 +13,8 @@ def main():
     fitbit = Fitbit(CLIENT_ID, CLIENT_SECRET, TOKEN)
     # print(fitbit.user())
     # print(fitbit.get_activity_log("2022-06-25"))
-    print(fitbit.get_sleep_log_graph())
+    print(fitbit.get_sleep_frequency_graph("2022-11-07"))
+    fitbit.get_sleep_frequency_graph()
     # print(fitbit.get_hrv())
 
 

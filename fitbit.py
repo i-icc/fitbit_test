@@ -72,3 +72,19 @@ class Fitbit:
         pyplot.yticks([0, 1, 2, 3],
                       ['deep', 'light', 'rem', "wake"])
         pyplot.show()
+
+    def get_sleep_frequency_graph(self, Date=datetime.date.today()):
+        datas = self.get_sleep_log(Date)
+        sleep_level_frequency = [0, 0, 0, 0]
+        levels = {
+            "wake": 3,
+            "rem": 2,
+            "light": 1,
+            "deep": 0
+        }
+        for data in datas["sleep"][0]["levels"]["data"]:
+            sleep_level_frequency[levels[data["level"]]] += data["seconds"]
+        pyplot.bar(range(len(sleep_level_frequency)), sleep_level_frequency)
+        pyplot.xticks([0, 1, 2, 3],
+                      ['deep', 'light', 'rem', "wake"])
+        pyplot.show()
