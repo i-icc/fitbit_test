@@ -1,5 +1,5 @@
 # fitbit_test
-fitbit API のテスト
+fitbit API を使いやすいライブラリがなかったため作成
 
 ## Usage
 ```
